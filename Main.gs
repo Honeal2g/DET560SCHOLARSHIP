@@ -12,7 +12,7 @@ function CreateMemo(Date,College,Term,Lname,Fname,SSAN,Type,Max){
   var template = DriveApp.getFileById('1ihx8O0zdSkZIpNogUQWAOw2jlllnq9Rr_EoGHUuAoQg');
   var NewMemo = template.makeCopy();  
   NewMemo.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-  NewMemo.setName(Lname+Fname+Term);
+  NewMemo.setName(Lname+Fname+Term);//NEED TO IMPROVE NOMENCLATURE
   var doc = DocumentApp.openById(NewMemo.getId());
   var body = doc.getBody();
   body.replaceText('\\$date', Date);
@@ -47,7 +47,7 @@ function Bill_ID(){//Can this email be sent from EDU?
 
 function DataMine(){
   var ColRange = [];
-  var ColNames = ['Award ltr ?','Last Name','First Name','Term','SSAN','College','TYPE','Estimate','Date','AwardLTR-IDS'];
+  var ColNames = ['Generated Award','Last Name','First Name','Term','SSAN','College','TYPE','Estimate','Date','AwardLTR-IDS'];
   var Cols = FindCols(ColNames);
   var Internal_Data = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   for(var i = 0; i < Cols.length; i++){
