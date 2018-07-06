@@ -26,7 +26,6 @@ function CreateMemo(Date,College,Term,Lname,Fname,SSAN,Type,Max){
   doc.saveAndClose();
   var Award_ID = NewMemo.getId();
   return Award_ID;
-  //DriveApp.createFile(doc.getAs('application/pdf'))  
 }
 function ScholarshipEmail(id){
   var email = "Honeal2g@gmail.com";
@@ -36,11 +35,14 @@ function ScholarshipEmail(id){
   var Memo = DriveApp.getFileById(id);
   var PDF_Memo = Memo.getAs(MimeType.PDF);
   
-  MailApp.sendEmail(email, subject, body, {attachments: [PDF_Memo]});  
+  MailApp.sendEmail(email, subject, body, {attachments: [PDF_Memo]}); 
+  //Write function that finds all ID's(Array) for the same school
+  //Write function that makes PDF's from (ID_Array)
+  //Send Email to Individual POC's with Bulk PDF
 }
 
-function Bill_ID(){
-  pass
+function Bill_ID(){//Can this email be sent from EDU?
+   pass
 }
 
 function DataMine(){
@@ -66,21 +68,10 @@ function DataMine(){
       var id = CreateMemo(Dates[i],Colleges[i],Terms[i],Lnames[i],Fnames[i],SSANs[i],TYPEs[i],Estimates[i]);
       ColRange[9].getCell(i+1,1).setValue(id);
       ColRange[0].getCell(i+1,1).setValue("YES");
-      ScholarshipEmail(id)
-      break; //Here for test purposes ONLY    
-      //MoveFiles();
+      ScholarshipEmail(id) //Here for test purposes ONLY 
+      break; //Here for test purposes ONLY       
     }
   }    
-}
-function MoveFiles(){
-  var files = DriveApp.getRootFolder().getFilesByType('application/pdf');
-  while (files.hasNext()) {
-    var file = files.next();
-    var destination = DriveApp.getFolderById("1imiV00mQzGdJ_QsD0DyjIVNxiDXK1gC6");
-    destination.addFile(file);
-    var pull = DriveApp.getRootFolder();
-    pull.removeFile(file);  
-  }
 }
 
 function FindCols(ColNames){
