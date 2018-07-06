@@ -1,9 +1,9 @@
 function onOpen(){
   var ui = SpreadsheetApp.getUi();
   var menu = ui.createMenu('Scholarship Options');
-  var item = menu.addItem('Generate Award Letter(s)', 'Test');
+  var item = menu.addItem('Generate Award Letter(s)', 'DataMine');
   var item2 = menu.addItem('Generate Bill-ID Email', 'Bill_ID');
-  var item3 = menu.addItem('Generate Nomination Email', 'newScol');
+  var item3 = menu.addItem('Generate Nomination Email', 'ScholarshipEmail');
   item.addToUi();
   item2.addToUi();
   item3.addToUi();  
@@ -28,8 +28,15 @@ function CreateMemo(Date,College,Term,Lname,Fname,SSAN,Type,Max){
   return Award_ID;
   //DriveApp.createFile(doc.getAs('application/pdf'))  
 }
-function newScol(){
-  pass
+function ScholarshipEmail(id){
+  var email = "Honeal2g@gmail.com";
+  var subject = "Air Force ROTC Scholarship Award Letter";  
+  var body = "This is a test";
+  
+  var Memo = DriveApp.getFileById(id);
+  var PDF_Memo = Memo.getAs(MimeType.PDF);
+  
+  MailApp.sendEmail(email, subject, body, {attachments: [PDF_Memo]});  
 }
 
 function Bill_ID(){
@@ -59,7 +66,8 @@ function DataMine(){
       var id = CreateMemo(Dates[i],Colleges[i],Terms[i],Lnames[i],Fnames[i],SSANs[i],TYPEs[i],Estimates[i]);
       ColRange[9].getCell(i+1,1).setValue(id);
       ColRange[0].getCell(i+1,1).setValue("YES");
-      break;      
+      ScholarshipEmail(id)
+      break; //Here for test purposes ONLY    
       //MoveFiles();
     }
   }    
